@@ -9,22 +9,18 @@ const Quiz = ({ setShowResult, setUserAnswers, setScore, userAnswers }) => {
 
   // Zamanlayıcılar
   useEffect(() => {
-    // Seçeneklerin gecikmeli gösterimi için zamanlayıcı
     const optionTimer = setTimeout(() => {
       setShowOptions(true);
     }, 4000); // 4 saniye sonra seçenekler gösterilecek
 
-    // Geri sayım süresi (30 saniye)
     const timer = setInterval(() => {
       setTimeLeft((prev) => prev - 1);
     }, 1000); // Her saniye süre azalıyor
 
-    // 30 saniye sonunda yeni soruya geçme zamanlayıcısı
     const nextQuestionTimer = setTimeout(() => {
       handleNextQuestion();
     }, 30000);
 
-    // Temizlik işlemleri (zamanlayıcıları temizleme)
     return () => {
       clearTimeout(optionTimer);
       clearTimeout(nextQuestionTimer);
@@ -35,13 +31,10 @@ const Quiz = ({ setShowResult, setUserAnswers, setScore, userAnswers }) => {
   // Seçeneğe tıklanıldığında yapılan işlem
   const handleOptionClick = (option) => {
     setSelectedOption(option);
-    let newScore = 0;
     if (option === questions[currentQuestion].answer) {
-      newScore = 1;
       setScore((prev) => prev + 1); // Doğruysa puanı artır
     }
 
-    // Cevabı mevcut soruya kaydet veya güncelle
     setUserAnswers((prev) => {
       const updatedAnswers = [...prev];
       updatedAnswers[currentQuestion] = option; // Belirli indekse cevap ekleniyor
