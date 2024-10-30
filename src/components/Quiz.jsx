@@ -1,4 +1,3 @@
-// Quiz bileşeni - Kullanıcının testi çözmesi için ana quiz bileşeni
 import React, { useState, useEffect } from 'react';
 import questions from '../questions';
 
@@ -42,7 +41,7 @@ const Quiz = ({ setShowResult, setUserAnswers, setScore, userAnswers }) => {
       setScore((prev) => prev + 1); // Doğruysa puanı artır
     }
 
-    // Cevabı mevcut soruya kaydet
+    // Cevabı mevcut soruya kaydet veya güncelle
     setUserAnswers((prev) => {
       const updatedAnswers = [...prev];
       updatedAnswers[currentQuestion] = option; // Belirli indekse cevap ekleniyor
@@ -60,7 +59,7 @@ const Quiz = ({ setShowResult, setUserAnswers, setScore, userAnswers }) => {
     setSelectedOption(null); // Seçili seçeneği temizle
     setTimeLeft(30); // Süreyi sıfırla
 
-    // Eğer soru cevaplanmadan geçiliyorsa boş olarak kaydet
+    // Eğer soru cevaplanmadan geçiliyorsa null olarak kaydet
     if (userAnswers[currentQuestion] === undefined) {
       setUserAnswers((prev) => {
         const updatedAnswers = [...prev];

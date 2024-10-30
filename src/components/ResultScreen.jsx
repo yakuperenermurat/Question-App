@@ -1,4 +1,3 @@
-// ResultScreen bileşeni - Kullanıcının quiz sonuçlarını gösteren bileşen
 import React from 'react';
 
 const ResultScreen = ({ score, questions, userAnswers, restartQuiz }) => {
@@ -10,7 +9,7 @@ const ResultScreen = ({ score, questions, userAnswers, restartQuiz }) => {
         {questions.map((question, index) => (
           <div key={index} style={{ marginBottom: '20px', textAlign: 'left' }}>
             <p><strong>Soru {index + 1}: </strong>{question.question}</p>
-            <p>Verilen cevap: {userAnswers[index]}</p>
+            <p>Verilen cevap: {userAnswers[index] !== null ? userAnswers[index] : "-"}</p>
             <p>
               {userAnswers[index] === question.answer ? (
                 <span style={{ color: 'green' }}>Doğru</span>
