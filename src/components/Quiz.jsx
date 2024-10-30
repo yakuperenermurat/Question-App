@@ -42,7 +42,13 @@ const Quiz = ({ setShowResult, setUserAnswers, setScore, userAnswers }) => {
       setScore((prev) => prev + 1); // Doğruysa puanı artır
     }
 
-    setUserAnswers((prev) => [...prev, option]); // Cevabı kaydet
+    // Cevabı mevcut soruya kaydet
+    setUserAnswers((prev) => {
+      const updatedAnswers = [...prev];
+      updatedAnswers[currentQuestion] = option; // Belirli indekse cevap ekleniyor
+      return updatedAnswers;
+    });
+
     setTimeout(() => {
       handleNextQuestion();
     }, 1000); // 1 saniye sonra yeni soruya geç
@@ -53,6 +59,15 @@ const Quiz = ({ setShowResult, setUserAnswers, setScore, userAnswers }) => {
     setShowOptions(false); // Seçenekleri kapat
     setSelectedOption(null); // Seçili seçeneği temizle
     setTimeLeft(30); // Süreyi sıfırla
+
+    // Eğer soru cevaplanmadan geçiliyorsa boş olarak kaydet
+    if (userAnswers[currentQuestion] === undefined) {
+      setUserAnswers((prev) => {
+        const updatedAnswers = [...prev];
+        updatedAnswers[currentQuestion] = null; // Boş cevap
+        return updatedAnswers;
+      });
+    }
 
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1); // Bir sonraki soruya geç
